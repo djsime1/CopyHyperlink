@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.002.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CopyHyperlink", "CopyHyperlink.csproj", "{31C0B888-7631-4FBB-B935-3B3170260014}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CopyHyperlink", "CopyHyperlink.csproj", "{1ABEEB83-4754-4D16-981E-E83D434CF4EB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{31C0B888-7631-4FBB-B935-3B3170260014}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{31C0B888-7631-4FBB-B935-3B3170260014}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{31C0B888-7631-4FBB-B935-3B3170260014}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{31C0B888-7631-4FBB-B935-3B3170260014}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1ABEEB83-4754-4D16-981E-E83D434CF4EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1ABEEB83-4754-4D16-981E-E83D434CF4EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1ABEEB83-4754-4D16-981E-E83D434CF4EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1ABEEB83-4754-4D16-981E-E83D434CF4EB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {5058BD55-674B-4851-8241-5CBC6123746B}
+		SolutionGuid = {EE2FC6AE-F87C-4538-85A0-1EF68F515C7C}
 	EndGlobalSection
 EndGlobal
