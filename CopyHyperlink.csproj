@@ -1,6 +1,16 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup> 
+    <Authors>djsime1 / Zenuru</Authors>
+    <Product>CopyHyperlink</Product>
+    <Description>Adds a "Copy Link" button to the hyperlink popup</Description>
+    <Version>1.0.1</Version>
+    <Copyright>$(Authors)</Copyright>
+    <AssemblyVersion>$(Version)</AssemblyVersion>
+    <AssemblyTitle>$(Product)</AssemblyTitle>
+  </PropertyGroup>
+
+  <PropertyGroup> 
     <TargetFramework>net472</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
@@ -12,7 +22,7 @@
     <ResonitePath Condition="'$(OS)' == 'Windows_NT' and Exists('C:\Program Files (x86)\Steam\steamapps\common\Resonite\')">C:\Program Files (x86)\Steam\steamapps\common\Resonite\</ResonitePath> 
     <ResonitePath Condition="'$(OS)' != 'Windows_NT' and Exists('$(HOME)/.local/share/Steam/steamapps/common/Resonite/')">$(HOME)/.local/share/Steam/steamapps/common/Resonite/</ResonitePath>
     <!--If neither path above exists, you can define your custom Resonite install directory here -->
-    <ResonitePath Condition="'$(ResonitePath)'==''">/Custom/Resonite/Install/Path</ResonitePath>
+    <ResonitePath Condition="'$(ResonitePath)'==''">/Custom/Resonite/Install/Path/</ResonitePath>
   </PropertyGroup>
 
   <ItemGroup>
@@ -38,6 +48,5 @@
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
     <Copy SourceFiles="$(OutDir)$(TargetFileName)" DestinationFolder="$(ResonitePath)rml_mods" />
     <Message Text="Copied $(TargetFileName) to $(GamePath)rml_mods" Importance="high" />
-    <!--Exec Command="C:\Program Files (x86)\Steam\steamapps\common\Resonite\Resonite.exe -Screen -screen-fullscreen 1 -DontAutoOpenCloudHome -CachePath C:\Resonite\Cache -DataPath C:\Resonite\Data -CTAATemporalEdgePower 1.0 -CTAASharpnessEnabled False -CTAAAdaptiveSharpness 0.4 -LoadAssembly Libraries\ResoniteModLoader.dll" /-->
   </Target>
 </Project>
