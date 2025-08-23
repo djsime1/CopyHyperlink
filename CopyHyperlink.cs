@@ -24,10 +24,18 @@ public class CopyHyperlink : ResoniteMod
     {
         public static void Postfix(HyperlinkOpenDialog __instance, ref SyncRef<Button> ____openButton, Sync<Uri> ___URL)
         {
+            if (__instance.InputInterface.Clipboard is null)
+            {
+                Warn("InputInterface has no Clipboard, CopyHyperlink can't do anything.");
+                return;
+            }
+
+            ____openButton.Target.Slot.Parent.Children.Last().OrderOffset = 2; // Keep Cancel as last button
             var ui = new UIBuilder(____openButton.Target.Slot.Parent);
             RadiantUI_Constants.SetupEditorStyle(ui);
 
             var btn = ui.Button("Interaction.CopyLink".AsLocaleKey(), RadiantUI_Constants.Sub.CYAN);
+            btn.Enabled = btn.InputInterface.IsClipboardSupported;
             var text = btn.Slot.GetComponentInChildren<Text>();
             btn.LocalPressed += (_, _) =>
             {
