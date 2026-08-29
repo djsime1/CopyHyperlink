@@ -4,10 +4,11 @@
     <Authors>djsime1 / Zenuru</Authors>
     <Product>CopyHyperlink</Product>
     <Description>Adds a "Copy Link" button to the hyperlink popup</Description>
-    <Version>1.0.2</Version>
+    <Version>1.1.0</Version> 
     <Copyright>$(Authors)</Copyright>
     <AssemblyVersion>$(Version)</AssemblyVersion>
     <AssemblyTitle>$(Product)</AssemblyTitle>
+    <CopyToMods Condition="'$(CopyToMods)'==''">true</CopyToMods>
   </PropertyGroup>
 
   <PropertyGroup> 
@@ -45,7 +46,7 @@
     </Reference>
   </ItemGroup>
 
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition="'$(CopyToMods)'=='true'">
     <Copy SourceFiles="$(OutDir)$(TargetFileName)" DestinationFolder="$(ResonitePath)rml_mods" />
     <Message Text="Copied $(TargetFileName) to $(GamePath)rml_mods" Importance="high" />
   </Target>

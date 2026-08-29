@@ -1,4 +1,5 @@
-﻿using HarmonyLib;
+﻿using System.Reflection.Emit;
+using HarmonyLib;
 using ResoniteModLoader;
 using FrooxEngine;
 using Elements.Core;
@@ -10,19 +11,29 @@ public class CopyHyperlink : ResoniteMod
 {
     public override string Name => "CopyHyperlink";
     public override string Author => "djsime1 / Zenuru";
-    public override string Version => "1.0.2";
+    public override string Version => "1.1.0";
     public override string Link => "https://github.com/djsime1/CopyHyperlink";
+    
+    private static ModConfiguration Config;
+    
+    [AutoRegisterConfigKey]
+    private static readonly ModConfigurationKey<bool> skipOpenDelay = new("Skip Hyperlink 'Open' delay", "(Requires restart to change) Skips the 3 second delay before the 'Open' button enables.", () => true);
+    public static bool SkipOpenDelay => Config!.GetValue(skipOpenDelay);
 
     public override void OnEngineInit()
     {
         Harmony harmony = new("je.dj.CopyHyperlink");
+        Config = GetConfiguration()!;
+        Config.Save();
         harmony.PatchAll();
     }
 
-    [HarmonyPatch(typeof(HyperlinkOpenDialog), "OnAttach")]
-    class CopyHyperlinkPatch
+    [HarmonyPatch(typeof(HyperlinkOpenDialog))]
+    class CopyHyperlinkPatches
     {
-        public static void Postfix(HyperlinkOpenDialog __instance, ref SyncRef<Button> ____openButton, Sync<Uri> ___URL)
+        [HarmonyPatch("OnAttach")]
+        [HarmonyPostfix]
+        public static void HyperlinkOpenDialog_OnAttach_Postfix(HyperlinkOpenDialog __instance, ref SyncRef<Button> ____openButton, Sync<Uri> ___URL)
         {
             if (__instance.InputInterface.Clipboard is null)
             {
@@ -30,7 +41,7 @@ public class CopyHyperlink : ResoniteMod
                 return;
             }
 
-            ____openButton.Target.Slot.Parent.Children.Last().OrderOffset = 2; // Keep Cancel as last button
+            ____openButton.Target.Slot.Parent.Children[^1].OrderOffset = 2; // Keep Cancel as last button
             var ui = new UIBuilder(____openButton.Target.Slot.Parent);
             RadiantUI_Constants.SetupEditorStyle(ui);
 
@@ -43,6 +54,19 @@ public class CopyHyperlink : ResoniteMod
                 text.LocaleContent = "General.CopiedToClipboard".AsLocaleKey();
                 __instance.RunInSeconds(2, () => text.LocaleContent = "Interaction.CopyLink".AsLocaleKey());
             };
+        }
+
+        [HarmonyPatch("Setup")]
+        [HarmonyTranspiler]
+        public static IEnumerable<CodeInstruction> HyperlinkOpenDialog_Setup_Transpiler(IEnumerable<CodeInstruction> instructions)
+        {
+            foreach (var instruction in instructions)
+            {
+                if (instruction.LoadsConstant(HyperlinkOpenDialog.BUTTON_TIMEOUT_SECONDS) && SkipOpenDelay)
+                    yield return new CodeInstruction(OpCodes.Ldc_I4_0);
+                else
+                    yield return instruction;
+            }
         }
     }
 }

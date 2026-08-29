@@ -1,6 +1,6 @@
 # CopyHyperlink
 
-A [ResoniteModLoader](https://github.com/resonite-modding-group/ResoniteModLoader) mod for [Resonite](https://resonite.com/) that adds a "Copy Link" button to the hyperlink popup.
+A [ResoniteModLoader](https://github.com/resonite-modding-group/ResoniteModLoader) mod for [Resonite](https://resonite.com/) that adds a "Copy Link" button to the hyperlink popup. Also allows you to disable the 3-second delay before the "Open" button gets enabled.
 
 ![image](https://github.com/djsime1/CopyHyperlink/assets/8518150/fb4e477c-96f3-4eb5-abed-ed947b61d9fe)
 
